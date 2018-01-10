@@ -1,18 +1,22 @@
 package academy.itcloud.aleksandr.manage;
 
-import static academy.itcloud.aleksandr.staticVariables.PersonList.personList;
 import academy.itcloud.aleksandr.model.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 
 public class ControlPerson {
 
-    public static void addStugent(String firstName, String lastName, int age){
+    private static List<Person> personList = new ArrayList<>();
+
+    public static void addStugent(String firstName, String lastName, int age) {
         Person student = new Person.PersonBuilder(firstName.trim(), lastName.trim()).age(age).status(Status.STUDENT).build();
         personList.add(student);
     }
 
-    public static void addTrener(String firstName, String lastName, int age){
+    public static void addTrener(String firstName, String lastName, int age) {
         Person trainer = new Person.PersonBuilder(firstName.trim(), lastName.trim()).age(age).status(Status.TRAINER).build();
         personList.add(trainer);
     }
@@ -33,28 +37,28 @@ public class ControlPerson {
         return true;
     }
 
-    public static Person getPerson (int ID){
+    public static Person getPerson(int ID) {
         return personList.get(ID - 1);
     }
 
-    public static void printStudentList(){
+    public static void printStudentList() {
         System.out.println("List all trainer.");
         Person element;
         Iterator<Person> itrPersonList = personList.iterator();
-        while (itrPersonList.hasNext()){
+        while (itrPersonList.hasNext()) {
             element = itrPersonList.next();
-            if(element.getStatus() == Status.TRAINER) continue;
+            if (element.getStatus() == Status.TRAINER) continue;
             System.out.print(element.printPerson());
         }
     }
 
-    public static void printTrainerList(){
+    public static void printTrainerList() {
         System.out.println("List all student.");
         Person element;
         Iterator<Person> itrPersonList = personList.iterator();
-        while (itrPersonList.hasNext()){
+        while (itrPersonList.hasNext()) {
             element = itrPersonList.next();
-            if(element.getStatus() == Status.STUDENT) continue;
+            if (element.getStatus() == Status.STUDENT) continue;
             System.out.print(element.printPerson());
         }
     }

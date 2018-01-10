@@ -2,9 +2,7 @@ package academy.itcloud.aleksandr.model;
 
 import java.util.Arrays;
 
-import static academy.itcloud.aleksandr.staticVariables.PersonList.personList;
-
-public class Course {
+public class Subject {
 
     private static int Number = 1;
 
@@ -12,11 +10,9 @@ public class Course {
         private final String courseName;
         private String courseDescription;
         private Person trainer;
-        private String dateBegin;
+        private String dateStart;
         private String dateEnd;
-//        private int[] studentsList = new int[12];
         private DaysOfTheWeek[] daysOfTheWeeks;
-        private Journal journal;
 
         public CourseBuilder(String courseName) {
             this.courseName = courseName;
@@ -32,21 +28,20 @@ public class Course {
             return this;
         }
 
-        public CourseBuilder period (String dateBegin, String dateEnd){
-            this.dateBegin = dateBegin;
+        public CourseBuilder period (String dateStart, String dateEnd){
+            this.dateStart = dateStart;
             this.dateEnd = dateEnd;
             return this;
         }
-
 
         public CourseBuilder daysOfTheWeeks (DaysOfTheWeek[] daysOfTheWeeks){
             this.daysOfTheWeeks = daysOfTheWeeks;
             return this;
         }
 
-        public Course builder (){
-            Course course = new Course(this);
-            return course;
+        public Subject builder (){
+            Subject subject = new Subject(this);
+            return subject;
         }
     }
 
@@ -54,13 +49,11 @@ public class Course {
     private int ID;
     private String courseDescription;
     private Person trainer;
-    private String dateBegin;
+    private String dateStart;
     private String dateEnd;
-    private int[] studentsList = new int[12];
     private DaysOfTheWeek[] daysOfTheWeeks =new  DaysOfTheWeek[5];
-    private Journal journal;
 
-    public Course(CourseBuilder courseBuilder) {
+    public Subject(CourseBuilder courseBuilder) {
         ID = Number++;
         this.courseName = courseBuilder.courseName;
         this.courseDescription = courseBuilder.courseDescription;
@@ -72,17 +65,13 @@ public class Course {
         this.trainer = trainer;
     }
 
-    public void setPeriod(String dateBegin, String dateEnd){
-        this.dateBegin = dateBegin;
+    public void setPeriod(String dateStart, String dateEnd){
+        this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
 
     public void setDaysOfTheWeeks(DaysOfTheWeek... daysOfTheWeeks) {
         this.daysOfTheWeeks = daysOfTheWeeks;
-    }
-
-    public int[] getStudentsList(){
-        return this.studentsList;
     }
 
     private String getTrainer(){
@@ -97,32 +86,19 @@ public class Course {
         return courseName;
     }
 
-    private String printSdudentList(){
-        String result = "Student list:\n";
-        if(this.studentsList[0] == 0){
-            result+=" no student.";
-        }else{
-            for (int i = 0; i < this.studentsList.length; i++) {
-                if(this.studentsList[i] == 0)break;
-                Person person = personList.get(studentsList[i] - 1);
-                result += person.printPerson();
-            }
-        }
-        return result;
-    }
-
     public String printInfoCourse(){
         return "" + ID + ": " + this.courseName;
     }
 
     @Override
     public String toString() {
-        return "Course: ID " + ID + '\n'
-                + "Course name: " + courseName + '\n'
+        return "Subject: ID " + ID + '\n'
+                + "Subject name: " + courseName + '\n'
                 + "Cours description: " + courseDescription + '\n'
                 + "Trainer: " +getTrainer() + '\n'
+                + "Start day: " + dateStart + '\n'
+                + "End day: " + dateEnd + '\n'
                 + "Days of the weeks: " + Arrays.toString(daysOfTheWeeks)+ '\n'
-                + printSdudentList() + '\n'
                 ;
     }
 }

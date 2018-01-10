@@ -18,21 +18,16 @@ public class Main {
 //        ControlPerson.printTrainerList();
 //        ControlPerson.printStudentList();
 
-        ControlCourse controlCourse = new ControlCourse();
-        controlCourse.createCourse("Basics of programming", "Learning the basics of programming", 1, "01.02.208", "01.03.2018");
-        controlCourse.changedaysOfTheWeeks(1, DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
-        controlCourse.createCourse("Java of programming", "Learning the java of programming", 6, "12.02.208", "01.04.2018");
-        controlCourse.changedaysOfTheWeeks(2, DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
-//        controlCourse.printCourseList();
-        controlCourse.createCourse("Java of programming", "Learning the java of programming", 6, "12.02.208", "01.04.2018");
+        ControlSubject controlSubject = new ControlSubject();
+        controlSubject.createCourse("Basics of programming", "Learning the basics of programming", 1, "01.02.208", "01.03.2018");
+        controlSubject.changedaysOfTheWeeks(1, DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
+        controlSubject.createCourse("Java of programming", "Learning the java of programming", 6, "12.02.208", "01.04.2018");
+        controlSubject.changedaysOfTheWeeks(2, DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
+        controlSubject.printCourseList();
+        controlSubject.createCourse("Java of programming", "Learning the java of programming", 6, "12.02.208", "01.04.2018");
 
-        controlCourse.printFullCourse(1);
+        controlSubject.printFullCourse(1);
 
-        controlCourse.addStudentOfCourse(1, 2);
-        controlCourse.printFullCourse(1);
-        controlCourse.addStudentOfCourse(1, 5);
-        controlCourse.addStudentOfCourse(1, 4);
-        controlCourse.printFullCourse(1);
 
     }
 }
