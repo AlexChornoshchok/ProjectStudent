@@ -15,19 +15,20 @@ public class Main {
         ControlPerson.addStugent("Aleksandr", "Aleksandrov ", 24);
         ControlPerson.addTrener("Lev ", "Landau", 110);
 
-//        ControlPerson.printTrainerList();
-//        ControlPerson.printStudentList();
+//        ControlPerson.printTrainer();
+//        ControlPerson.printStudent();
 
         ControlSubject controlSubject = new ControlSubject();
-        controlSubject.createCourse("Basics of programming", "Learning the basics of programming", 1, "01.02.208", "01.03.2018");
+        controlSubject.createCourse("Basics of programming", "Learning the basics of programming", 1, "01.02.2018", "01.03.2018");
         controlSubject.changedaysOfTheWeeks(1, DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
-        controlSubject.createCourse("Java of programming", "Learning the java of programming", 6, "12.02.208", "01.04.2018");
+        controlSubject.changePeriod(1, "03.02.2018", "01.03.2018");
+        controlSubject.createCourse("Java of programming", "Learning the java of programming", 6, "12.02.2018", "01.04.2018");
         controlSubject.changedaysOfTheWeeks(2, DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
         controlSubject.printCourseList();
-        controlSubject.createCourse("Java of programming", "Learning the java of programming", 6, "12.02.208", "01.04.2018");
+        controlSubject.createCourse("Java of programming", "Learning the java of programming", 6, "12.02.2018", "01.04.2018");
 
         controlSubject.printFullCourse(1);
-
+        controlSubject.printFullCourse(2);
 
     }
 }

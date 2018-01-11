@@ -2,27 +2,28 @@ package academy.itcloud.aleksandr.manage;
 
 import academy.itcloud.aleksandr.model.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import java.util.*;
 
 public class ControlPerson {
 
     private static List<Person> personList = new ArrayList<>();
+    private static Map<Integer, Person> personMap = new HashMap<>();
 
     public static void addStugent(String firstName, String lastName, int age) {
         Person student = new Person.PersonBuilder(firstName.trim(), lastName.trim()).age(age).status(Status.STUDENT).build();
         personList.add(student);
+        personMap.put(student.getID(), student);
     }
 
     public static void addTrener(String firstName, String lastName, int age) {
         Person trainer = new Person.PersonBuilder(firstName.trim(), lastName.trim()).age(age).status(Status.TRAINER).build();
         personList.add(trainer);
+        personMap.put(trainer.getID(), trainer);
     }
 
     public static boolean personExists(int ID) {
-        if ((ID - 1) > personList.size()) {
+//        if ((ID - 1) > personList.size()) {
+        if (personMap.get(ID) == null) {
             System.out.println("No person with this ID " + ID);
             return false;
         }
@@ -38,28 +39,45 @@ public class ControlPerson {
     }
 
     public static Person getPerson(int ID) {
-        return personList.get(ID - 1);
+        return personMap.get(ID);
+        //       return personList.get(ID - 1);
     }
 
-    public static void printStudentList() {
-        System.out.println("List all trainer.");
+    public static void printStudent() {
+        printMap(personMap, 'S');
+//        printList('S');
+    }
+
+    public static void printTrainer() {
+        printMap(personMap, 'T');
+//        printList('T');
+    }
+
+    private static void printMap(Map<Integer, Person> personMap, char c) {
+        System.out.println(c == 'S' ? "List all student." : "List all trainer.");
+        for (Map.Entry<Integer, Person> pair : personMap.entrySet()) {
+            if (c == 'S' & pair.getValue().getStatus() == Status.STUDENT) {
+                System.out.println(pair.getValue().printPerson());
+            }
+            if (c == 'T' & pair.getValue().getStatus() == Status.TRAINER) {
+                System.out.println(pair.getValue().printPerson());
+            }
+        }
+    }
+
+    public static void printList(char c) {
+        System.out.println(c == 'S' ? "List all student." : "List all trainer.");
         Person element;
         Iterator<Person> itrPersonList = personList.iterator();
         while (itrPersonList.hasNext()) {
             element = itrPersonList.next();
-            if (element.getStatus() == Status.TRAINER) continue;
-            System.out.print(element.printPerson());
+            if (c == 'S' & element.getStatus() == Status.STUDENT) {
+                System.out.print(element.printPerson());
+            }
+            if (c == 'T' & element.getStatus() == Status.TRAINER) {
+                System.out.print(element.printPerson());
+            }
         }
     }
 
-    public static void printTrainerList() {
-        System.out.println("List all student.");
-        Person element;
-        Iterator<Person> itrPersonList = personList.iterator();
-        while (itrPersonList.hasNext()) {
-            element = itrPersonList.next();
-            if (element.getStatus() == Status.STUDENT) continue;
-            System.out.print(element.printPerson());
-        }
-    }
 }

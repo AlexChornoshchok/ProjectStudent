@@ -59,7 +59,11 @@ public class Person {
     }
 
     public String printPerson(){
-        return "" + status + " ID: " + ID + " " + firstName + " " + lastName + " Age: " + age + "\n";
+        return "" + status + " ID: " + ID + " " + firstName + " " + lastName + " Age: " + age;
+    }
+
+    public int getID() {
+        return ID;
     }
 
     @Override

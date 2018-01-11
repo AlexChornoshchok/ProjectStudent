@@ -2,13 +2,12 @@ package academy.itcloud.aleksandr.manage;
 
 import academy.itcloud.aleksandr.model.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ControlSubject {
 
     private static List<Subject> subjectList = new ArrayList<>();
+    private static Map<Integer, Person> subjectMap = new HashMap<>();
 
     public void createCourse(String courseName, String courseDescription, int ID_Trainer, String dateStart, String dateEnd) {
         boolean notRefuse = true;
@@ -57,11 +56,13 @@ public class ControlSubject {
         }
     }
 
-    public void changePeriod(Subject subject, String dateStart, String dateEnd) {
-        subject.setPeriod(dateStart, dateEnd);
+    public void changePeriod(int ID, String dateStart, String dateEnd) {
+        if (courseExists(ID)) {
+            Subject subject = getCourse(ID);
+            subject.setPeriod(dateStart, dateEnd);
+        }
     }
 
-    // add a course with a trainer
     private Subject addCourse(String courseName, String coursDescription, Person trainer, String dateStart, String dateEnd) {
         Subject subject = new Subject.CourseBuilder(courseName).courseDescription(coursDescription).trainer(trainer).period(dateStart, dateEnd).builder();
         return subject;
