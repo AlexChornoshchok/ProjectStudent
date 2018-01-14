@@ -1,28 +1,30 @@
 package academy.itcloud.aleksandr.manage;
 
 import academy.itcloud.aleksandr.model.*;
+import academy.itcloud.aleksandr.storige.*;
+
 
 import java.util.*;
 
 public class ControlPerson {
 
-    private static List<Person> personList = new ArrayList<>();
+    private static List<Person> humanList = new ArrayList<>();
     private static Map<Integer, Person> personMap = new HashMap<>();
 
     public static void addStugent(String firstName, String lastName, int age) {
-        Person student = new Person.PersonBuilder(firstName.trim(), lastName.trim()).age(age).status(Status.STUDENT).build();
-        personList.add(student);
-        personMap.put(student.getID(), student);
+        Human student = new Human.PersonBuilder(firstName.trim(), lastName.trim()).age(age).status(Status.STUDENT).build();
+        humanList.add(new Person(student));
+        personMap.put(student.getID(), new Person(student));
     }
 
     public static void addTrener(String firstName, String lastName, int age) {
-        Person trainer = new Person.PersonBuilder(firstName.trim(), lastName.trim()).age(age).status(Status.TRAINER).build();
-        personList.add(trainer);
-        personMap.put(trainer.getID(), trainer);
+        Human trainer = new Human.PersonBuilder(firstName.trim(), lastName.trim()).age(age).status(Status.TRAINER).build();
+        humanList.add(new Person(trainer));
+        personMap.put(trainer.getID(), new Person(trainer));
     }
 
     public static boolean personExists(int ID) {
-//        if ((ID - 1) > personList.size()) {
+//        if ((ID - 1) > humanList.size()) {
         if (personMap.get(ID) == null) {
             System.out.println("No person with this ID " + ID);
             return false;
@@ -30,17 +32,9 @@ public class ControlPerson {
         return true;
     }
 
-    public static boolean personExists(Person person) {
-        if (0 > personList.indexOf(person)) {
-            System.out.println("No person " + person);
-            return false;
-        }
-        return true;
-    }
-
     public static Person getPerson(int ID) {
         return personMap.get(ID);
-        //       return personList.get(ID - 1);
+//       return humanList.get(ID - 1);
     }
 
     public static void printStudent() {
@@ -68,7 +62,7 @@ public class ControlPerson {
     public static void printList(char c) {
         System.out.println(c == 'S' ? "List all student." : "List all trainer.");
         Person element;
-        Iterator<Person> itrPersonList = personList.iterator();
+        Iterator<Person> itrPersonList = humanList.iterator();
         while (itrPersonList.hasNext()) {
             element = itrPersonList.next();
             if (c == 'S' & element.getStatus() == Status.STUDENT) {

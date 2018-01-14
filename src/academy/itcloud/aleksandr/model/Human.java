@@ -1,6 +1,6 @@
 package academy.itcloud.aleksandr.model;
 
-public class Person {
+public class Human {
 
     private static int NUMBE=1;
 
@@ -25,9 +25,9 @@ public class Person {
             return this;
         }
 
-        public Person build(){
-            Person person = new Person(this);
-            return person;
+        public Human build(){
+            Human human = new Human(this);
+            return human;
         }
     }
 
@@ -38,7 +38,7 @@ public class Person {
     private Status status;
     private int ID;
 
-    private Person(PersonBuilder builder) {
+    private Human(PersonBuilder builder) {
         ID = NUMBE++;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;

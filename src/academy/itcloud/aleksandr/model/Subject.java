@@ -9,7 +9,7 @@ public class Subject {
     public static class CourseBuilder {
         private final String courseName;
         private String courseDescription;
-        private Person trainer;
+        private Human trainer;
         private String dateStart;
         private String dateEnd;
         private DaysOfTheWeek[] daysOfTheWeeks;
@@ -23,7 +23,7 @@ public class Subject {
             return this;
         }
 
-        public CourseBuilder trainer (Person trainer){
+        public CourseBuilder trainer (Human trainer){
             this.trainer = trainer;
             return this;
         }
@@ -48,7 +48,7 @@ public class Subject {
     private final String courseName;
     private int ID;
     private String courseDescription;
-    private Person trainer;
+    private Human trainer;
     private String dateStart;
     private String dateEnd;
     private DaysOfTheWeek[] daysOfTheWeeks =new  DaysOfTheWeek[5];
@@ -61,7 +61,7 @@ public class Subject {
         this.daysOfTheWeeks = courseBuilder.daysOfTheWeeks;
     }
 
-    public void setTrainer(Person trainer) {
+    public void setTrainer(Human trainer) {
         this.trainer = trainer;
     }
 
@@ -92,9 +92,9 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject: ID " + ID + '\n'
-                + "Subject name: " + courseName + '\n'
-                + "Cours description: " + courseDescription + '\n'
+        return "Course: ID " + ID + '\n'
+                + "Course name: " + courseName + '\n'
+                + "Course description: " + courseDescription + '\n'
                 + "Trainer: " +getTrainer() + '\n'
                 + "Start day: " + dateStart + '\n'
                 + "End day: " + dateEnd + '\n'
