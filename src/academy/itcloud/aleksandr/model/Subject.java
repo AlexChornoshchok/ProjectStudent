@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Subject {
 
-    private static int Number = 1;
+    private static int number = 1;
 
     public static class CourseBuilder {
         private final String courseName;
@@ -18,28 +18,28 @@ public class Subject {
             this.courseName = courseName;
         }
 
-        public CourseBuilder courseDescription(String coursDescription){
+        public CourseBuilder courseDescription(String coursDescription) {
             this.courseDescription = coursDescription;
             return this;
         }
 
-        public CourseBuilder trainer (Human trainer){
+        public CourseBuilder trainer(Human trainer) {
             this.trainer = trainer;
             return this;
         }
 
-        public CourseBuilder period (String dateStart, String dateEnd){
+        public CourseBuilder period(String dateStart, String dateEnd) {
             this.dateStart = dateStart;
             this.dateEnd = dateEnd;
             return this;
         }
 
-        public CourseBuilder daysOfTheWeeks (DaysOfTheWeek[] daysOfTheWeeks){
+        public CourseBuilder daysOfTheWeeks(DaysOfTheWeek[] daysOfTheWeeks) {
             this.daysOfTheWeeks = daysOfTheWeeks;
             return this;
         }
 
-        public Subject builder (){
+        public Subject builder() {
             Subject subject = new Subject(this);
             return subject;
         }
@@ -51,13 +51,15 @@ public class Subject {
     private Human trainer;
     private String dateStart;
     private String dateEnd;
-    private DaysOfTheWeek[] daysOfTheWeeks =new  DaysOfTheWeek[5];
+    private DaysOfTheWeek[] daysOfTheWeeks = new DaysOfTheWeek[5];
 
     public Subject(CourseBuilder courseBuilder) {
-        ID = Number++;
+        ID = number++;
         this.courseName = courseBuilder.courseName;
         this.courseDescription = courseBuilder.courseDescription;
         this.trainer = courseBuilder.trainer;
+        this.dateStart = courseBuilder.dateStart;
+        this.dateEnd = courseBuilder.dateEnd;
         this.daysOfTheWeeks = courseBuilder.daysOfTheWeeks;
     }
 
@@ -65,7 +67,7 @@ public class Subject {
         this.trainer = trainer;
     }
 
-    public void setPeriod(String dateStart, String dateEnd){
+    public void setPeriod(String dateStart, String dateEnd) {
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
@@ -74,8 +76,8 @@ public class Subject {
         this.daysOfTheWeeks = daysOfTheWeeks;
     }
 
-    private String getTrainer(){
-        return this.trainer == null ? " no trainer": this.trainer.getName();
+    private String getTrainer() {
+        return this.trainer == null ? " no trainer" : this.trainer.getName();
     }
 
     public int getID() {
@@ -86,7 +88,7 @@ public class Subject {
         return courseName;
     }
 
-    public String printInfoCourse(){
+    public String printInfoCourse() {
         return "" + ID + ": " + this.courseName;
     }
 
@@ -95,10 +97,10 @@ public class Subject {
         return "Course: ID " + ID + '\n'
                 + "Course name: " + courseName + '\n'
                 + "Course description: " + courseDescription + '\n'
-                + "Trainer: " +getTrainer() + '\n'
+                + "Trainer: " + getTrainer() + '\n'
                 + "Start day: " + dateStart + '\n'
                 + "End day: " + dateEnd + '\n'
-                + "Days of the weeks: " + Arrays.toString(daysOfTheWeeks)+ '\n'
+                + "Days of the weeks: " + Arrays.toString(daysOfTheWeeks) + '\n'
                 ;
     }
 }

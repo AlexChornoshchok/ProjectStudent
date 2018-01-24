@@ -21,15 +21,6 @@ public class Course {
         return subject;
     }
 
-    public String printInfoOfCourse() {
-        return "" + subject.getID() + ": " + subject.getCourseName();
-    }
-
-    public void printInFullOfCourse() {
-        System.out.println(subject);
-        printJournal();
-    }
-
     public void createTask(String nameTask) {
         taskList.add(nameTask);
     }
@@ -48,10 +39,18 @@ public class Course {
         journal.put(person, task1);
     }
 
+    public boolean isAStudentOnTheCourse(Person person){
+        return journal.containsKey(person);
+    }
+
+    public void removeStudent(Person person){
+        journal.remove(person);
+    }
+
     private void printJournal() {
         System.out.println("Journal: course " + subject.getID());
         for (Person person : journal.keySet()) {
-            System.out.println(person.printPerson() + ": ");
+            System.out.println(person.human.printPerson() + ": ");
             Map<String, Integer> taskStudent = journal.get(person);
             for (String kay : taskStudent.keySet()) {
                 System.out.println(kay + " - " + taskStudent.get(kay));
@@ -59,9 +58,20 @@ public class Course {
         }
     }
 
-/*
-    public void putAnEstimate(Person person, String taskName, int score) {
-        journal.get(person).replace(taskName, score);
+    public String printInfoOfCourse() {
+        return "" + subject.getID() + ": " + subject.getCourseName();
     }
-*/
+
+    public void printInFullOfCourse() {
+        System.out.println(subject);
+        printJournal();
+    }
+
+    public void printOfTheStudent(){
+        for (Person person : journal.keySet()) {
+            System.out.println(person.human.printPerson());
+        }
+    }
+
+
 }

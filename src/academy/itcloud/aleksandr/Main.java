@@ -15,25 +15,43 @@ public class Main {
         ControlPerson.addStugent("Aleksandr", "Aleksandrov ", 24);
         ControlPerson.addTrener("Lev ", "Landau", 110);
 
-//        ControlPerson.printTrainer();
-//        ControlPerson.printStudent();
+//        ControlPerson.printAllTrainer();
+//        ControlPerson.printAllStudent();
+//        ControlPerson.printInfoTrainer(1);
+//        ControlPerson.printInfoStudent(2);
 
-        ControlSubject controlSubject = new ControlSubject();
-        controlSubject.createSubject("Basics of programming", "Learning the basics of programming", 1, "01.02.2018", "01.03.2018");
-        controlSubject.changedaysOfTheWeeks(1, DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
-        controlSubject.changePeriod(1, "03.02.2018", "01.03.2018");
-        controlSubject.createSubject("Java of programming", "Learning the java of programming", 6, "12.02.2018", "01.04.2018");
-        controlSubject.changedaysOfTheWeeks(2, DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
-        controlSubject.printCourseList();
-        controlSubject.createSubject("Java of programming", "Learning the java of programming", 6, "12.02.2018", "01.04.2018");
+        ControlCourse controlCourse = new ControlCourse();
+        controlCourse.createSubject("Basics of programming",
+                "Learning the basics of programming",
+                1, "01.02.2018", "01.03.2018",
+                 DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
+        controlCourse.createSubject("Java of programming",
+                "Learning the java of programming",
+                6, "12.02.2018",
+                "01.04.2018",
+                 DaysOfTheWeek.MONDAY, DaysOfTheWeek.THURSDAY, DaysOfTheWeek.FRIDAY);
+//        controlCourse.printCourseList();
+//        controlCourse.createSubject("Java of programming", "Learning the java of programming", 6, "12.02.2018", "01.04.2018");
 
-        controlSubject.addTaskOfCourse(1,"Task1", "Task2", "Task3");
-        controlSubject.addStudentOfCourse(1, 2);
-        controlSubject.addStudentOfCourse(1, 3);
-        controlSubject.addStudentOfCourse(1, 4);
+        controlCourse.addTaskOfCourse(1,"Task1", "Task2", "Task3");
+        controlCourse.addStudentOfCourse(2, 2);
+        controlCourse.addStudentOfCourse(1, 3);
+        controlCourse.addStudentOfCourse(1, 4);
+//        controlCourse.printInfoOfCourse(1);
+//        controlCourse.printStudentsFromTheCourse(1);
+//        controlCourse.printInfoOfCourse(2);
+//        controlCourse.printStudentsFromTheCourse(2);
+        controlCourse.removeStudentFromACourse(2,2);
+//        controlCourse.transferOfTheStudent(2,1, 2);
 
-        controlSubject.printFullInfoOfCourse(1);
-        controlSubject.printFullInfoOfCourse(2);
+//        controlCourse.printInfoOfCourse(1);
+//        controlCourse.printStudentsFromTheCourse(1);
+//        controlCourse.printInfoOfCourse(2);
+//        controlCourse.printStudentsFromTheCourse(2);
+        controlCourse.addStudentOfCourse(2, 2);
+        controlCourse.printFullInfoOfCourse(2);
+
+        controlCourse.printFullInfoOfCourse(1);
 
     }
 }

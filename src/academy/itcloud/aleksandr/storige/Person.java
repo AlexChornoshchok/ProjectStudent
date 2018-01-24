@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Person {
-    private Human human;
+    public Human human;
     private Map<Integer, Course>  courseList = new HashMap<>();
 
     public Person(Human human) {
@@ -17,15 +17,4 @@ public class Person {
         courseList.put(course.getID(), course);
     }
 
-    public Status getStatus(){
-        return human.getStatus();
-    }
-
-    public String printPerson(){
-        return human.printPerson();
-    }
-
-    public Human getHumen(){
-        return this.human;
-    }
 }

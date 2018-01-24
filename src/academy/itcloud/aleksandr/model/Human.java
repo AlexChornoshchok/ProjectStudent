@@ -46,10 +46,6 @@ public class Human {
         this.age = builder.age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getName(){
         return firstName + " " + lastName;
     }
