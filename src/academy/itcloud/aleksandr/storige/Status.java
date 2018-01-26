@@ -1,4 +1,4 @@
-package academy.itcloud.aleksandr.model;
+package academy.itcloud.aleksandr.storige;
 
 public enum Status {
     STUDENT, TRAINER;

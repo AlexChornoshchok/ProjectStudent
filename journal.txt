@@ -1,0 +1,2 @@
+Journal of the course 1: Basics of programming
+STUDENT ID: 2 Ivan Ivanov Age: 27: Task2 - 9Task1 - 8Task3 - 0STUDENT ID: 4 Sidor Sidorov Age: 22: Task2 - 7Task1 - 2Task3 - 1STUDENT ID: 3 Petr Petrov Age: 25: Task2 - 7Task1 - 3Task3 - 1
