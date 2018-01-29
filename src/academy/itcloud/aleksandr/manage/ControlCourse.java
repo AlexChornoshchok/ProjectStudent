@@ -20,45 +20,19 @@ public class ControlCourse {
         }
         if (notRefuse) {
             Person trainer = getPerson(ID_Trainer);
-            if (trainer.getStatus() == Status.STUDENT) {
-                System.out.println("A student can not be a teacher.");
+            if (!ControlPerson.personExists(ID_Trainer) || trainer.getStatus() == Status.STUDENT) {
+                //               System.out.println("A student can not be a teacher.");
                 subject = createSubject(courseName, courseDescription, dateStart, dateEnd, daysOfTheWeeks);
             } else {
                 subject = createSubject(courseName, courseDescription, trainer, dateStart, dateEnd, daysOfTheWeeks);
             }
             Course course = new Course(subject);
             courseMap.put(subject.getID(), course);
-            if (trainer.getStatus() == Status.TRAINER) {
-                ControlPerson.addCourseToPerson(ID_Trainer, course);
+            if (ControlPerson.personExists(ID_Trainer)) {
+                if(trainer.getStatus() == Status.TRAINER){
+                    ControlPerson.addCourseToPerson(ID_Trainer, course);
+                }
             }
-        }
-    }
-
-    public void printFullInfoOfCourse(int ID) {
-        if (courseExists(ID)) {
-            getCourse(ID).printInFullOfCourse();
-        }
-    }
-
-    public void changeDaysOfTheWeeks(int ID, DaysOfTheWeek... daysOfTheWeeks) {
-        if (courseExists(ID)) {
-            Subject subject = getCourse(ID).getSubject();
-            subject.setDaysOfTheWeeks(daysOfTheWeeks);
-        }
-    }
-
-/*
-    public void changeTrainer(Subject subject, int ID) {
-        if (ControlPerson.getStatus(ID) == Status.TRAINER) {
-            subject.setTrainer(getPerson(ID).human);
-        }
-    }
-*/
-
-    public void changePeriod(int ID, String dateStart, String dateEnd) {
-        if (courseExists(ID)) {
-            Subject subject = getCourse(ID).getSubject();
-            subject.setPeriod(dateStart, dateEnd);
         }
     }
 
@@ -84,6 +58,28 @@ public class ControlCourse {
                 .daysOfTheWeeks(daysOfTheWeeks)
                 .builder();
         return subject;
+    }
+
+    public void changeDaysOfTheWeeks(int ID, DaysOfTheWeek... daysOfTheWeeks) {
+        if (courseExists(ID)) {
+            Subject subject = getCourse(ID).getSubject();
+            subject.setDaysOfTheWeeks(daysOfTheWeeks);
+        }
+    }
+
+/*
+    public void changeTrainer(Subject subject, int ID) {
+        if (ControlPerson.getStatus(ID) == Status.TRAINER) {
+            subject.setTrainer(getPerson(ID).human);
+        }
+    }
+*/
+
+    public void changePeriod(int ID, String dateStart, String dateEnd) {
+        if (courseExists(ID)) {
+            Subject subject = getCourse(ID).getSubject();
+            subject.setPeriod(dateStart, dateEnd);
+        }
     }
 
 
@@ -125,10 +121,10 @@ public class ControlCourse {
         }
     }
 
-    public void addTrainerOfCourse(int ID_Course, int ID_Trainer){
+    public void addTrainerOfCourse(int ID_Course, int ID_Trainer) {
         if (courseExists(ID_Course) && ControlPerson.personExists(ID_Trainer)
                 && ControlPerson.getStatus(ID_Trainer) == Status.TRAINER) {
-                ControlPerson.addCourseToPerson(ID_Trainer, getCourse(ID_Course));
+            ControlPerson.addCourseToPerson(ID_Trainer, getCourse(ID_Course));
         }
     }
 
@@ -169,6 +165,12 @@ public class ControlCourse {
         }
     }
 
+    public void printFullInfoOfCourse(int ID) {
+        if (courseExists(ID)) {
+            getCourse(ID).printInFullOfCourse();
+        }
+    }
+
     public void printCourseList() {
         for (Map.Entry<Integer, Course> pair : courseMap.entrySet()) {
             System.out.println(pair.getValue().printNameOfCourse());
@@ -193,7 +195,7 @@ public class ControlCourse {
         }
     }
 
-    public void writeJournalInFile(int ID) {
+    public void saveJournalInFile(int ID) {
         try {
             ControlFile.writeFile(getCourse(ID));
         } catch (IOException e) {

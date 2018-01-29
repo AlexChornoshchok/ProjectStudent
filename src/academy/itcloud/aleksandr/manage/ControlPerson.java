@@ -9,18 +9,21 @@ public class ControlPerson {
 
     private static Map<Integer, Person> personMap = new HashMap<>();
 
-    public static void addStugent(String firstName, String lastName, int age) {
+    public static void addStudent(String firstName, String lastName, int age) {
         if (!nameExists(firstName + " " + lastName)) {
-            Human student = new Human.PersonBuilder(firstName.trim(), lastName.trim()).age(age).build();
-            personMap.put(student.getID(), new Person(student, Status.STUDENT));
+            addPerson(firstName, lastName, age, Status.STUDENT);
         }
     }
 
-    public static void addTrener(String firstName, String lastName, int age) {
+    public static void addTrainer(String firstName, String lastName, int age) {
         if (!nameExists(firstName + " " + lastName)) {
-            Human trainer = new Human.PersonBuilder(firstName.trim(), lastName.trim()).age(age).build();
-            personMap.put(trainer.getID(), new Person(trainer, Status.TRAINER));
+            addPerson(firstName, lastName, age, Status.TRAINER);
         }
+    }
+
+    private static void addPerson(String firstName, String lastName, int age, Status status) {
+        Human trainer = new Human.PersonBuilder(firstName.trim(), lastName.trim()).age(age).build();
+        personMap.put(trainer.getID(), new Person(trainer, status));
     }
 
     public static boolean personExists(int ID) {
@@ -40,33 +43,26 @@ public class ControlPerson {
     }
 
     public static void printAllStudent() {
-        printPerson( 'S');
+        printPerson(Status.STUDENT);
     }
 
     public static void printAllTrainer() {
-        printPerson('T');
+        printPerson(Status.TRAINER);
     }
 
-    private static void printPerson( char c) {
-        System.out.println(c == 'S' ? "List all student." : "List all trainer.");
+    public static void printPerson(Status status) {
+        System.out.println(status == Status.STUDENT ? "List all student." : "List all trainer.");
         for (Map.Entry<Integer, Person> pair : personMap.entrySet()) {
-            if (c == 'S' & pair.getValue().getStatus() == Status.STUDENT) {
+            if (pair.getValue().getStatus() == status) {
                 System.out.println(pair.getValue().human.printPerson());
             }
-            if (c == 'T' & pair.getValue().getStatus() == Status.TRAINER) {
-                System.out.println(pair.getValue().human.printPerson());
-            }
-        }
-    }
-
-    public static void printInfoTrainer(int ID) {
-        if (personExists(ID) && getStatus(ID) == Status.TRAINER) {
-            personMap.get(ID).printInfoOfThePerson();
         }
     }
 
     public static void printInfoPerson(int ID) {
+        if (personExists(ID)) {
             personMap.get(ID).printInfoOfThePerson();
+        }
     }
 
     public static void addCourseToPerson(int ID_Person, Course course) {

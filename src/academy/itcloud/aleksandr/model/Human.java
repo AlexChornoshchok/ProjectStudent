@@ -8,7 +8,6 @@ public class Human {
         private final String firstName;
         private final String lastName;
         private int age;
-//        private Status status;
 
         public PersonBuilder(String firstName, String lastName) {
             this.firstName = firstName;
@@ -19,11 +18,6 @@ public class Human {
             this.age = age;
             return this;
         }
-
-//        public PersonBuilder status(Status status){
-//            this.status = status;
-//            return this;
-//        }
 
         public Human build(){
             Human human = new Human(this);
@@ -50,15 +44,11 @@ public class Human {
         return firstName + " " + lastName;
     }
 
-//    public Status getStatus() {
-//        return status;
-//    }
-
     public String printPerson(){
         return " ID: " + ID + " " + firstName + " " + lastName + " Age: " + age;
     }
 
-    public int getID() {
+    public int getID(){
         return ID;
     }
 

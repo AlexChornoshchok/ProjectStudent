@@ -2,5 +2,8 @@ package academy.itcloud.aleksandr.dao;
 
 public interface DAO {
 
-    void addStudent(int ID);
+    void add(int ID);
+    void update(int ID);
+    void remove(int ID);
+    Object get(Object obj);
 }
