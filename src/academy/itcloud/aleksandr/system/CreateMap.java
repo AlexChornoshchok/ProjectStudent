@@ -3,12 +3,13 @@ package academy.itcloud.aleksandr.system;
 public class CreateMap {
 
     public static void main(String[] args) {
-        //        PersonMap.addTrainer("Albert ", "Einstein", 139);
+
 //        PersonMap.addStudent("Ivan", "Ivanov ", 27);
 //        PersonMap.addStudent("Petr", "Petrov ", 25);
 //        PersonMap.addStudent("Sidor", "Sidorov ", 22);
 //        PersonMap.addStudent("Aleksandr", "Aleksandrov ", 24);
 //        PersonMap.addTrainer("Lev ", "Landau", 110);
+//        PersonMap.addTrainer("Albert ", "Einstein", 139);
 //
 //        PersonMap.printAllTrainer();
 //        PersonMap.printAllStudent();
