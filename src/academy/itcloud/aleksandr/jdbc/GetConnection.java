@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class GetConnection {
 
     private static final String DRIVER = "org.h2.Driver";
-    private static final String DB_CONNECTION = "jdbc:h2:d:/ITCloud/AlexChernochshok/test";
+    private static final String DB_CONNECTION = "jdbc:h2:d:/MyJob/student_bd";
     //    private static final String DB_CONNECTION ="jdbc:h2:~test";
     private static final String DB_LOGIN = "";
     private static final String DB_PASSWORD = "";

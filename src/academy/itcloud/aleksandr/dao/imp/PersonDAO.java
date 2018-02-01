@@ -1,4 +1,4 @@
-package academy.itcloud.aleksandr.dao.implement;
+package academy.itcloud.aleksandr.dao.imp;
 
 import academy.itcloud.aleksandr.dao.DAO;
 

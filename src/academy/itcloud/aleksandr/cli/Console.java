@@ -84,8 +84,9 @@ public class Console {
             case "00":
                 exitConsole();
                 break;
-//            default:
-//                continueYesNo();
+            default:
+                System.err.println("Not the correct team number");
+                start();
         }
     }
 
