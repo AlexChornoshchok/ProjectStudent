@@ -1,11 +1,10 @@
-package academy.itcloud.aleksandr.manage;
+package academy.itcloud.aleksandr.cli;
 
 import academy.itcloud.aleksandr.model.*;
-import academy.itcloud.aleksandr.storige.*;
 
 import java.util.*;
 
-public class ControlPerson {
+public class PersonMap {
 
     private static Map<Integer, Person> personMap = new HashMap<>();
 
@@ -22,8 +21,8 @@ public class ControlPerson {
     }
 
     private static void addPerson(String firstName, String lastName, int age, Status status) {
-        Human trainer = new Human.PersonBuilder(firstName.trim(), lastName.trim()).age(age).build();
-        personMap.put(trainer.getID(), new Person(trainer, status));
+        Person person = new Person.PersonBuilder(firstName.trim(), lastName.trim()).age(age).status(status).build();
+        personMap.put(person.getID(), person);
     }
 
     public static boolean personExists(int ID) {
@@ -42,19 +41,19 @@ public class ControlPerson {
         return personMap.get(ID);
     }
 
-    public static void printAllStudent() {
-        printPerson(Status.STUDENT);
-    }
+//    public static void printAllStudent() {
+//        printPerson(Status.STUDENT);
+//    }
 
-    public static void printAllTrainer() {
-        printPerson(Status.TRAINER);
-    }
+//    public static void printAllTrainer() {
+//        printPerson(Status.TRAINER);
+//    }
 
     public static void printPerson(Status status) {
         System.out.println(status == Status.STUDENT ? "List all student." : "List all trainer.");
         for (Map.Entry<Integer, Person> pair : personMap.entrySet()) {
             if (pair.getValue().getStatus() == status) {
-                System.out.println(pair.getValue().human.printPerson());
+                System.out.println(pair.getValue().printPerson());
             }
         }
     }
@@ -80,7 +79,7 @@ public class ControlPerson {
     private static boolean nameExists(String studentName) {
         if (!personMap.isEmpty()) {
             for (Person person : personMap.values()) {
-                if (studentName.equals(person.human.getName())) {
+                if (studentName.equals(person.getName())) {
                     System.out.println("Student name should be unique");
                     return true;
                 }

@@ -1,9 +1,8 @@
-package academy.itcloud.aleksandr.dao.implement_dao;
+package academy.itcloud.aleksandr.dao.implement;
 
 import academy.itcloud.aleksandr.dao.DAO;
 
-public class CourseDAO implements DAO {
-
+public class PersonDAO implements DAO {
     @Override
     public void add(int ID) {
         throw new UnsupportedOperationException();
@@ -19,8 +18,4 @@ public class CourseDAO implements DAO {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public Object get(Object obj) {
-        return null;
-    }
 }
