@@ -1,5 +1,6 @@
-package academy.itcloud.aleksandr.cli;
+package academy.itcloud.aleksandr.map;
 
+import academy.itcloud.aleksandr.cli.File;
 import academy.itcloud.aleksandr.model.*;
 
 import java.time.DayOfWeek;
@@ -10,7 +11,7 @@ public class CourseMap {
     private static final int QUANTITY_OF_STUDENTS_ON_THE_COURSE = 12;
     private static Map<Integer, Course> courseMap = new HashMap<>();
 
-    public void createCourse(String courseName, String courseDescription, int trainerId, String dateStart, String dateEnd, DayOfWeek... dayOfWeek) {
+    public void addCourse(String courseName, String courseDescription, int trainerId, String dateStart, String dateEnd, DayOfWeek... dayOfWeek) {
         boolean notRefuse = true;
         Course course;
         if (!courseMap.isEmpty()) {
@@ -19,9 +20,9 @@ public class CourseMap {
         if (notRefuse) {
             Person trainer = getPerson(trainerId);
             if (!PersonMap.personExists(trainerId) || trainer.getStatus() == Status.STUDENT) {
-                course = createCourse(courseName, courseDescription, dateStart, dateEnd, dayOfWeek );
+                course = addCourse(courseName, courseDescription, dateStart, dateEnd, dayOfWeek );
             } else {
-                course = createCourse(courseName, courseDescription, trainer, dateStart, dateEnd, dayOfWeek);
+                course = addCourse(courseName, courseDescription, trainer, dateStart, dateEnd, dayOfWeek);
             }
             courseMap.put(course.getID(), course);
             if (PersonMap.personExists(trainerId)) {
@@ -32,8 +33,8 @@ public class CourseMap {
         }
     }
 
-    private Course createCourse(String courseName, String courseDescription, Person trainer,
-                                  String dateStart, String dateEnd, DayOfWeek... daysOfWeek) {
+    private Course addCourse(String courseName, String courseDescription, Person trainer,
+                             String dateStart, String dateEnd, DayOfWeek... daysOfWeek) {
         Course course = new Course.CourseBuilder(courseName)
                 .courseDescription(courseDescription)
                 .trainer(trainer)
@@ -43,8 +44,8 @@ public class CourseMap {
         return course;
     }
 
-    // add a course without a trainer
-    private Course createCourse(String courseName, String courseDescription, String dateStart, String dateEnd, DayOfWeek... daysOfWeek) {
+    // addStudent a course without a trainer
+    private Course addCourse(String courseName, String courseDescription, String dateStart, String dateEnd, DayOfWeek... daysOfWeek) {
         Course course = new Course.CourseBuilder(courseName)
                 .courseDescription(courseDescription)
                 .period(dateStart, dateEnd)

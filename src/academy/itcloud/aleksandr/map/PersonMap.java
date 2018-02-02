@@ -1,4 +1,4 @@
-package academy.itcloud.aleksandr.cli;
+package academy.itcloud.aleksandr.map;
 
 import academy.itcloud.aleksandr.model.*;
 

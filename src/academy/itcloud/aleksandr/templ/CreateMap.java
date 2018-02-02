@@ -1,4 +1,4 @@
-package academy.itcloud.aleksandr.system;
+package academy.itcloud.aleksandr.templ;
 
 public class CreateMap {
 
@@ -17,17 +17,17 @@ public class CreateMap {
 //        PersonMap.printInfoPerson(4);
 //
 //        CourseMap controlCourse = new CourseMap();
-//        controlCourse.createCourse("Basics of programming",
+//        controlCourse.addCourse("Basics of programming",
 //                "Learning the basics of programming",
 //                1, "01.02.2018", "01.03.2018",
 //                 DaysOfWeek.MONDAY, DaysOfWeek.THURSDAY, DaysOfWeek.FRIDAY);
-//        controlCourse.createCourse("Java of programming",
+//        controlCourse.addCourse("Java of programming",
 //                "Learning the java of programming",
 //                6, "12.02.2018",
 //                "01.04.2018",
 //                 DaysOfWeek.MONDAY, DaysOfWeek.THURSDAY, DaysOfWeek.FRIDAY);
 //        controlCourse.printCourseList();
-//        controlCourse.createCourse("Java of programming", "Learning the java of programming", 6, "12.02.2018", "01.04.2018");
+//        controlCourse.addCourse("Java of programming", "Learning the java of programming", 6, "12.02.2018", "01.04.2018");
 //
 //        controlCourse.addTaskOfCourse(1,"Task1", "Task2", "Task3");
 //        controlCourse.addTaskOfCourse(2,"Task-1", "Task-2", "Task-3");

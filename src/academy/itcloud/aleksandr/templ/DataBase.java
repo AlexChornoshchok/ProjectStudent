@@ -1,4 +1,4 @@
-package academy.itcloud.aleksandr.jdbc;
+package academy.itcloud.aleksandr.templ;
 
 import java.sql.*;
 

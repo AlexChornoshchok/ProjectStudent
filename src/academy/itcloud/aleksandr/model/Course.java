@@ -92,7 +92,7 @@ public class Course {
     public void addStudentOfCourse(Person person) {
         HashMap<String, Integer> task = new HashMap<>();
         for (String kay : taskList) {
-            task.put(kay, (int) (Math.random() * 10));
+            task.put(kay, (int) (Math.random() * 12));
         }
         journal.put(person, task);
     }

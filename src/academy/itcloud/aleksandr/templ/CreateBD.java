@@ -1,20 +1,15 @@
-package academy.itcloud.aleksandr.system;
+package academy.itcloud.aleksandr.templ;
 
 import academy.itcloud.aleksandr.jdbc.GetConnection;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
 
 
 public class CreateBD extends GetConnection {
 
     private static final String DRIVER = "org.h2.Driver";
-    //    private static final String DB_CONNECTION = "jdbc:h2:d:/MyJob/student_bd";
-    private static final String DB_CONNECTION = "jdbc:h2:d:/ITCloud/AlexChernochshok/student_bd";
+    private static final String DB_CONNECTION = "jdbc:h2:d:/MyJob/student_bd";
+    //    private static final String DB_CONNECTION = "jdbc:h2:d:/ITCloud/AlexChernochshok/student_bd";
     //    private static final String DB_CONNECTION ="jdbc:h2:~test";
     private static final String DB_LOGIN = "";
     private static final String DB_PASSWORD = "";
@@ -47,6 +42,8 @@ public class CreateBD extends GetConnection {
     private static final String ADD_STUDENT = "INSERT INTO student (firstname, lastname, age) VALUES (?, ?, ?)";
     private static final String ADD_COURSE = "INSERT INTO course (name, description, data_start, data_end, daysOfWeek, trainer_id) VALUES (?,?,?,?,?)";
     private static final String ADD_JOURNAL = "INSERT INTO journal (score, course_id, student_id, task_id) VALUES (?,?,?,?)";
+    private static final String JOURNAL_OF_THE_COURSE = "SELECT * FROM journal JOIN student ON journal.student_id=student.student_id " +
+            "JOIN task ON journal.task_id=task.task_id WHERE journal.course_id=? ORDER BY student.lastname";
 
     private static final String ADD_TRAINER1 = "INSERT INTO trainer (firstname, lastname, age) VALUES ('Lev', 'Landou', 110)";
     private static final String ADD_TRAINER2 = "INSERT INTO trainer (firstname, lastname, age) VALUES ('Albert', 'Einstein', 139)";
@@ -64,13 +61,17 @@ public class CreateBD extends GetConnection {
     private static final String JOURNAL = "SELECT * FROM journal JOIN student ON journal.student_id=student.student_id " +
             "JOIN task ON journal.task_id=task.task_id " +
             "WHERE journal.course_id=1 ORDER BY student.lastname";
-    //    private static final String SELECT_STUDENT_COURSE =
+    //    private static final String SELECT_STUDENTS_ON_COURSE =
 //            "SELECT  * FROM journal JOIN course ON journal.course_id=course.course_id " +
 //                    "RIGHT JOIN student ON journal.student_id=student.student_id " +
 //                    "WHERE journal.course_id=1";
-    private static final String SELECT_STUDENT_COURSE =
+    private static final String SELECT_STUDENTS_ON_COURSE =
             "SELECT DISTINCT student.student_id, firstname, lastname FROM student RIGHT JOIN journal ON journal.student_id=student.student_id " +
                     "WHERE journal.course_id=1";
+    private static final String SELECT_STUDENT_HIS_COURSES =
+            "SELECT DISTINCT course.course_id, name FROM course RIGHT JOIN journal ON journal.course_id=course.course_id " +
+                                   "LEFT JOIN student ON journal.student_id=student.student_id " +
+                                    "WHERE student.student_id=1";
     /// ************ selekt
 
 
@@ -95,6 +96,7 @@ public class CreateBD extends GetConnection {
         }
 
         ResultSet resultSet;
+        //       PreparedStatement preparedStatement;
         try (Statement statement = getConnection().createStatement()) {
 //            statement.execute(CREATE_TABLE_TRAINER);
 //            statement.execute(CREATE_TABLE_STUDENT);
@@ -105,7 +107,7 @@ public class CreateBD extends GetConnection {
 //            statement.execute("INSERT INTO trainer (firstname, lastname, age) VALUES ('Lev', 'Landou', 110)"); //1
 //            statement.execute("INSERT INTO trainer (firstname, lastname, age) VALUES ('Albert', 'Einstein', 139)"); //2
 //            statement.execute("INSERT INTO trainer (firstname, lastname, age) VALUES ('Bill', 'Gates', 63)"); //3
-
+//
 //            statement.execute("INSERT INTO student (firstname, lastname, age) VALUES ('Alex', 'Alexandrov', 25)"); //1
 //            statement.execute("INSERT INTO student (firstname, lastname, age) VALUES ('Petr', 'Ptrov', 23)"); //2
 //            statement.execute("INSERT INTO student (firstname, lastname, age) VALUES ('Ivan', 'Ivanov', 24)"); //3
@@ -113,14 +115,14 @@ public class CreateBD extends GetConnection {
 //            statement.execute("INSERT INTO student (firstname, lastname, age) VALUES ('Anna', 'Zlata', 29)"); //5
 //            statement.execute("INSERT INTO student (firstname, lastname, age) VALUES ('Marry', 'Popyns', 26)"); //6
 //            statement.execute("INSERT INTO student (firstname, lastname, age) VALUES ('Olga', 'Pavlova', 21)"); //7
-
+//
 //            statement.execute("INSERT INTO course (name, description, data_start, data_end, daysOfWeek, trainer_id) VALUES " +
 //                    "('Basics of programming', 'This is exactly the course that a beginner needs to try his hand at programming'," +
 //                    " '2018-02-10', '2018-04-20', 'WEN TUS SUB', 1)");
 //            statement.execute("INSERT INTO course (name, description, data_start, data_end, daysOfWeek,  trainer_id) VALUES " +
 //                    "('Front End Development', 'Development of the frontend is becoming more popular today, and specialists of this profile are all more necessary.'," +
 //                    " '2018-02-10', '2018-04-20', 'WEN TUS SUB', 2)");
-
+//
 //            statement.execute("INSERT INTO task (task_name, course_id) VALUES ('Task-1 for course 1', 1)");
 //            statement.execute("INSERT INTO task (task_name, course_id) VALUES ('Task-2 for course 1', 1)");
 //            statement.execute("INSERT INTO task (task_name, course_id) VALUES ('Task-3 for course 1', 1)");
@@ -128,7 +130,7 @@ public class CreateBD extends GetConnection {
 //            statement.execute("INSERT INTO task (task_name, course_id) VALUES ('1-Task for course 1', 2)");
 //            statement.execute("INSERT INTO task (task_name, course_id) VALUES ('1-Task for course 1', 2)");
 //            statement.execute("INSERT INTO task (task_name, course_id) VALUES ('1-Task for course 1', 2)");
-
+//
 //            statement.execute("INSERT INTO journal (score, course_id, student_id, task_id) VALUES (10, 1, 1, 1)");
 //            statement.execute("INSERT INTO journal (score, course_id, student_id, task_id) VALUES (9, 1, 1, 2)");
 //            statement.execute("INSERT INTO journal (score, course_id, student_id, task_id) VALUES (11, 1, 1, 2)");
@@ -152,6 +154,7 @@ public class CreateBD extends GetConnection {
 //            statement.execute("INSERT INTO journal (score, course_id, student_id, task_id) VALUES (10, 2, 5, 2)");
 //            statement.execute("INSERT INTO journal (score, course_id, student_id, task_id) VALUES (11, 2, 5, 3)");
 //            statement.execute("INSERT INTO journal (score, course_id, student_id, task_id) VALUES (8, 2, 5, 4)");
+
 //            resultSet = statement.executeQuery(SELECT_TRAINER);
 //            System.out.println("Trainer");
 //            while (resultSet.next()) {
@@ -174,31 +177,56 @@ public class CreateBD extends GetConnection {
 //                System.out.printf("Days of the week: %s\n\n", resultSet.getString("daysOfWeek"));
 //            }
 
-//           resultSet = statement.executeQuery(SELECT_STUDENT_COURSE);
+//           resultSet = statement.executeQuery(SELECT_STUDENTS_ON_COURSE);
 //           while (resultSet.next()) {
 //                System.out.printf("Student: ID-%d, %s %s\n", resultSet.getInt("student_id"), resultSet.getString("firstname"), resultSet.getString("lastname"));
 //            }
 
-            resultSet = statement.executeQuery(JOURNAL);
-            int studentId = 0;
+//            resultSet = statement.executeQuery(JOURNAL);
+//            int studentId = 0; // TODO "переделать на коллекцию"
+//            while (resultSet.next()) {
+//                if (studentId != resultSet.getInt("student_id")) {
+//                    System.out.printf("Student: ID-%d, %s %s\n", resultSet.getInt("student_id"), resultSet.getString("firstname"), resultSet.getString("lastname"));
+//                    studentId = resultSet.getInt("student_id");
+//                }
+//                System.out.printf("%s: score %d\n", resultSet.getString("task_name"), resultSet.getInt("score"));
+//            }
+
+//            resultSet = statement.executeQuery(JOURNAL_OF_THE_COURSE);
+////            int studentId = 0; // TODO "переделать на коллекцию"
+//            while (resultSet.next()) {
+//                if (studentId != resultSet.getInt("student_id")) {
+//                    System.out.printf("Student: ID-%d, %s %s\n", resultSet.getInt("student_id"), resultSet.getString("firstname"), resultSet.getString("lastname"));
+//                    studentId = resultSet.getInt("student_id");
+//                }
+//                System.out.printf("%s: score %d\n", resultSet.getString("task_name"), resultSet.getInt("score"));
+//            }
+
+            resultSet = statement.executeQuery(SELECT_STUDENT_HIS_COURSES);
             while (resultSet.next()) {
-                if (studentId != resultSet.getInt("student_id")) {
-                    System.out.printf("Student: ID-%d, %s %s\n", resultSet.getInt("student_id"), resultSet.getString("firstname"), resultSet.getString("lastname"));
-                    studentId = resultSet.getInt("student_id");
-                }
-                System.out.printf("%s: score %d\n", resultSet.getString("task_name"), resultSet.getInt("score"));
+//                System.out.printf("Student: ID-%d, %s %s\n", resultSet.getInt("student_id"), resultSet.getString("firstname"), resultSet.getString("lastname"));
+                System.out.printf("Course %d: %s\n", resultSet.getInt("course_id"), resultSet.getString("name"));
             }
 
-//            List<String> myList = new ArrayList();
-//            statement.execute(SELECT_STUDENT_COURSE);
-//            resultSet = statement.getResultSet();
-//            while (resultSet.next()) {
-//                System.out.println();
-//            }
-        } catch (
-                SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+//        try (PreparedStatement preparedStatement = getConnection().prepareStatement(JOURNAL_OF_THE_COURSE)) {
+//            int studentId = 0;// TODO "переделать на колекцию"
+//            preparedStatement.setInt(1,1);
+//            resultSet = preparedStatement.executeQuery();
+//            while (resultSet.next()) {
+//                if (studentId != resultSet.getInt("student_id")) {
+//                    System.out.printf("Student: ID-%d, %s %s\n", resultSet.getInt("student_id"), resultSet.getString("firstname"), resultSet.getString("lastname"));
+//                    studentId = resultSet.getInt("student_id");
+//                }
+//                System.out.printf("%s: score %d\n", resultSet.getString("task_name"), resultSet.getInt("score"));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+
 
     }
 

@@ -1,23 +1,25 @@
 package academy.itcloud.aleksandr.cli;
 
+import academy.itcloud.aleksandr.cli.implCLI.CourseMapCLI;
+import academy.itcloud.aleksandr.cli.implCLI.PersonMapCLI;
+import academy.itcloud.aleksandr.cli.interfaceCLI.CourseCLI;
+import academy.itcloud.aleksandr.cli.interfaceCLI.PersonCLI;
 import academy.itcloud.aleksandr.model.Status;
 
 import java.time.DayOfWeek;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static java.lang.Integer.valueOf;
 
 public class Console {
 
-    private final String CHECK_NAME = "^[A-Z]?[a-z]";
-    private final String CHECK_AGE = "\\d\\d";
-    private boolean inputError;
-    private Pattern pattern;
-    private Matcher matcher;
+//    private CourseCLI course = new CourseBD();
+//    private PersonCLI person = new PersonBD();
 
-    private CourseMap courseMap = new CourseMap();
+    private CourseCLI course = new CourseMapCLI();
+    private PersonCLI person = new PersonMapCLI();
+
+
     private Scanner console = new Scanner(System.in);
 
     public void start() {
@@ -90,7 +92,6 @@ public class Console {
         }
     }
 
-
     private void createPerson(Status status) {
         System.out.print("Create " + (status == Status.STUDENT ? "student." : "trainer."));
         System.out.print("Enter first name\t");
@@ -100,9 +101,9 @@ public class Console {
         System.out.print("Enter last age\t");
         String age = console.next();
         if (Status.STUDENT == status) {
-            PersonMap.addStudent(firstName, lastName, valueOf(age));
+            person.addStudent(firstName, lastName, valueOf(age));
         } else if (Status.TRAINER == status) {
-            PersonMap.addTrainer(firstName, lastName, valueOf(age));
+            person.addTrainer(firstName, lastName, valueOf(age));
         }
         start();
     }
@@ -120,7 +121,7 @@ public class Console {
         System.out.print("Enter date completion course. Template (1900-01-01) ");
         String dateEnd = console.nextLine();
         DayOfWeek[] daysOfWeeks = {DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY};
-        courseMap.createCourse(courseName, courseDescription, valueOf(ID_Trainer), dateStart, dateEnd, daysOfWeeks);
+        course.addCourse(courseName, courseDescription, valueOf(ID_Trainer), dateStart, dateEnd, daysOfWeeks);
         start();
     }
 
@@ -130,7 +131,7 @@ public class Console {
         String ID = console.nextLine();
         System.out.println("Enter task\t");
         String tasks = console.nextLine();
-        courseMap.addTaskOfCourse(valueOf(ID), tasks);
+        course.addTaskOfCourse(valueOf(ID), tasks);
         start();
     }
 
@@ -140,7 +141,7 @@ public class Console {
         String ID_Course = console.nextLine();
         System.out.println("Enter ID student\t");
         String ID_Student = console.nextLine();
-        courseMap.addStudentOfCourse(valueOf(ID_Course), valueOf(ID_Student));
+        course.addStudentOfCourse(valueOf(ID_Course), valueOf(ID_Student));
         start();
     }
 
@@ -152,52 +153,52 @@ public class Console {
         String ID_CourseFrom = console.nextLine();
         System.out.print("The ID of the course to which the student moves\t");
         String ID_CourseTo = console.nextLine();
-        courseMap.transferOfTheStudent(valueOf(ID_Student), valueOf(ID_CourseFrom), valueOf(ID_CourseTo));
+        course.transferOfTheStudent(valueOf(ID_Student), valueOf(ID_CourseFrom), valueOf(ID_CourseTo));
         start();
     }
 
     private void printAllPerson(Status status) {
-        PersonMap.printPerson(status);
+        person.printPerson(status);
         start();
     }
 
     private void printCourseList() {
-        courseMap.printCourseList();
+        course.printCourseList();
         start();
     }
 
     private void printFullInfoOfCourse() {
         System.out.print("Enter ID course\t");
         int ID = console.nextInt();
-        courseMap.printFullInfoOfCourse(ID);
+        course.printFullInfoOfCourse(ID);
         start();
     }
 
     public void printInfoPerson(Status status) {
         System.out.printf("Enter ID%s%t", status);
         int ID = console.nextInt();
-        PersonMap.printInfoPerson(ID);
+        person.printInfoPerson(ID);
         start();
     }
 
     public void printJournalOfCourse() {
         System.out.println("Enter ID of course\t");
         int ID = console.nextInt();
-        courseMap.printJournalOfCourse(ID);
+        course.printJournalOfCourse(ID);
         start();
     }
 
     public void printStudentsFromTheCourse() {
         System.out.println("Enter ID of course\t");
         int ID = console.nextInt();
-        courseMap.printStudentsFromTheCourse(ID);
+        course.printStudentsFromTheCourse(ID);
         start();
     }
 
     public void saveJournalInFile() {
         System.out.println("Enter ID of course\t");
         int ID = console.nextInt();
-        courseMap.saveJournalInFile(valueOf(ID));
+        course.saveJournalInFile(valueOf(ID));
         start();
     }
 
